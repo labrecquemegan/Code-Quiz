@@ -1,3 +1,15 @@
+button {
+    border-radius: 50%;
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
 .wrapper {
     position: absolute;
     left: 30%;
@@ -6,7 +18,7 @@
     height: 500px;
 }
 
-.startTime {
+#submitBtn {
     background-color: purple;
     margin-left: 33%;
     padding: 15px 32px;
@@ -17,3 +29,4 @@
 .currentTime {
     float: right;
 }
+
