@@ -62,5 +62,16 @@ function getCurrentQuestions() {
     questionChoices.textContent = ""
 
     // to create each question
-    
+    for (var i=0; i < currentQuestion.choice.length; i++) {
+        var choiceNode = document.createElement("button")
+        choiceNode.setAttribute("class", "choice")
+        choiceNode.setAttribute("value", currentQuestion.choice[i])
+
+        choiceNode.textContent = i + 1 + ". " + currentQuestion.choice[i]
+
+        questionChoices.appendChild(choiceNode)
+    }
+
+    startBtn.addEventListener("click", startQuiz)
+
 }
