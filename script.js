@@ -1,39 +1,66 @@
-// create consts for quiz to go
-const quizContainer = document.getElementById("quiz")
-const resultsContainer = document.getElementById("results")
-
-const quizQuestions = [
+// variable for holding questions
+const questions = [
 
     {
-        question: "Commonly used data types DO NOT include:",
-        answers: ["strings", "booleans", "alerts", "numbers"],
-        correctAnswer: "alerts"
+        title: "Commonly used data types DO NOT include:",
+        choice: ["strings", "booleans", "alerts", "numbers"],
+        answer: "alerts"
     },
 
     {
-        question: "The condition in an if / else statement is enclosed within ____.",
-        answers: ["quotes", "curly brackets", "parentheses", "square brackets"],
-        correctAnswer: "parentheses"
+        title: "The condition in an if / else statement is enclosed within ____.",
+        choice: ["quotes", "curly brackets", "parentheses", "square brackets"],
+        answer: "parentheses"
     },
 
     {
-        question: "Arrays in Javascript can be used to store ____.",
-        answers: ["numbers and strings", "other arrays", "booleans", "all of the above"],
-        correctAnswer: "all of the above"
+        title: "Arrays in Javascript can be used to store ____.",
+        choice: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+        answer: "all of the above"
     },
 
     {
-        question: "String values must be enclosed within ____ when being assigned to variables.",
-        answers: ["commas", "curly brackets", "quotes", "parenthesis"],
-        correctAnswer: "quotes"
+        title: "String values must be enclosed within ____ when being assigned to variables.",
+        choice: ["commas", "curly brackets", "quotes", "parenthesis"],
+        answer: "quotes"
     },
 
     {
-        question: "A very useful tool for used during development and debugging for printing content to the debugger is:",
-        answers: ["Javascript", "terminal / bash", "for loops", "console log"],
-        correctAnswer: "console log"
+        title: "A very useful tool for used during development and debugging for printing content to the debugger is:",
+        choice: ["Javascript", "terminal / bash", "for loops", "console log"],
+        answer: "console log"
     },
 
 ]
 
+// Keeping track of quiz stats
+var currentQuestionIndex= 0
+var time = questions.length = 15
+var timerId
 
+// DOM elements
+var startBtn = document.querySelector("#start")
+var questionsElement = document.querySelector("#questions")
+var timerElement = document.querySelector("#time")
+var questionChoices = document.querySelector("#choices")
+
+// Function to start the quiz
+function startQuiz() {
+    var startScreen = document.querySelector("start-screen")
+    startScreen.setAttribute("class", "hide")
+    // unhide elements
+    questionsElement.removeAttribute("class")
+
+    getCurrentQuestions()
+}
+
+// gets currents questions/choices
+function getCurrentQuestions() {
+    var currentQuestion = questions[currentQuestionIndex]
+    var titleElement = document.querySelector("#question-title")
+
+    questionChoices.textContent = ""
+
+    // to create each question
+    
+}
