@@ -132,7 +132,8 @@ function timerStart() {
 
             if (secondsLeft <= 0) {
                 clearInterval(holdInterval)
-                allDone();
+                // will need to add a score function
+                score();
                 timerElement.textContent = "Time's up!"
             }
         }, 1000)
