@@ -43,6 +43,8 @@ var startBtn = document.querySelector("#start")
 var questionsElement = document.querySelector("#questions")
 var timerElement = document.querySelector("#time")
 var questionChoices = document.querySelector("#choices")
+// maybe delete
+var ulCreate = document.createElement("ul")
 
 // Function to start the quiz
 function startQuiz() {
@@ -60,6 +62,7 @@ function getCurrentQuestions() {
     var currentQuestion = questions[currentQuestionIndex]
     var titleElement = document.querySelector("#question-title")
     titleElement.textContent = currentQuestion.title
+    var ulCreate = document.createElement("ul")
 
     questionChoices.textContent = ""
 
@@ -72,16 +75,54 @@ function getCurrentQuestions() {
         choiceNode.textContent = i + 1 + ". " + currentQuestion.choice[i]
 
         questionChoices.appendChild(choiceNode)
+        // var userQuestion = questions[currentQuestionIndex].title
+        // var userChoices = questions[questionChoices].choice
+        // questionsDiv.textContent = userQuestion;
     }
+
+
+
+    // To accecpt user answers
+    // userQuestion.forEach(function (newItem) {
+    //     var listItem = document.createElement("li")
+    //     listItem.textContent = newItem
+    //     questionsDiv.appendChild(ulCreate)
+    //     ulCreate.appendChild(listItem)
+    // var userChoiceBtn = document.querySelector("value")
+    // console.log(value)
+    // })
+
+
+    // compare user answer with real answer
+//     function compare(event) {
+//         var element = event.target
+
+//         if (element.matches("li")) {
+
+//             var createDiv = document.createElement("div")
+//             createDiv.setAttribute("id", "createDiv")
+//             // Correct condition 
+//             if (element.textContent == questions[currentQuestionIndex].answer) {
+//                 score++
+//                 createDiv.textContent = "Correct! The answer is:  " + questions[currentQuestionIndex].answer
+//                 // Correct condition 
+//             } else {
+//                 // Will deduct -5 seconds off secondsLeft for wrong answers
+//                 secondsLeft = secondsLeft - penalty
+//                 createDiv.textContent = "Wrong! The correct answer is:  " + questions[currentQuestionIndex].answer
+//             }
+
+//         }
+//     }
 }
 
 // timer
-// We are checking zero because its originally set to zero
-var secondsLeft = 76;
+// checking zero because its originally set to zero
+var secondsLeft = 76
 // Holds interval time
-var holdInterval = 0;
+var holdInterval = 0
 // Holds penalty time
-var penalty = 10;
+var penalty = 10
 
 function timerStart() {
     if (holdInterval === 0) {
