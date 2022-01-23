@@ -34,7 +34,7 @@ const questions = [
 ]
 
 // Keeping track of quiz stats
-var currentQuestionIndex= 0
+var currentQuestionIndex = 0
 var time = questions.length = 15
 var timerId
 
@@ -46,23 +46,25 @@ var questionChoices = document.querySelector("#choices")
 
 // Function to start the quiz
 function startQuiz() {
-    var startScreen = document.querySelector("start-screen")
+    var startScreen = document.querySelector("#start-screen")
     startScreen.setAttribute("class", "hide")
     // unhide elements
     questionsElement.removeAttribute("class")
 
     getCurrentQuestions()
+    timerStart()
 }
 
 // gets currents questions/choices
 function getCurrentQuestions() {
     var currentQuestion = questions[currentQuestionIndex]
     var titleElement = document.querySelector("#question-title")
+    titleElement.textContent = currentQuestion.title
 
     questionChoices.textContent = ""
 
     // to create each question
-    for (var i=0; i < currentQuestion.choice.length; i++) {
+    for (var i = 0; i < currentQuestion.choice.length; i++) {
         var choiceNode = document.createElement("button")
         choiceNode.setAttribute("class", "choice")
         choiceNode.setAttribute("value", currentQuestion.choice[i])
@@ -71,7 +73,30 @@ function getCurrentQuestions() {
 
         questionChoices.appendChild(choiceNode)
     }
-
-    startBtn.addEventListener("click", startQuiz)
-
 }
+
+// timer
+// We are checking zero because its originally set to zero
+var secondsLeft = 76;
+// Holds interval time
+var holdInterval = 0;
+// Holds penalty time
+var penalty = 10;
+
+function timerStart() {
+    if (holdInterval === 0) {
+        holdInterval = setInterval(function () {
+            secondsLeft--
+            timerElement.textContent = "Time: " + secondsLeft
+
+            if (secondsLeft <= 0) {
+                clearInterval(holdInterval)
+                allDone();
+                timerElement.textContent = "Time's up!"
+            }
+        }, 1000)
+    }
+}
+
+
+startBtn.addEventListener("click", startQuiz)
