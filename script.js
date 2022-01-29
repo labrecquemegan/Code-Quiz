@@ -57,14 +57,36 @@ function startQuiz() {
     timerStart()
 }
 
+function checkGuess(userChoice) {
+    if (userChoice === questions[currentQuestionIndex].answer) {
+        alert("Correct!!!")
+    } else {
+        secondsLeft = secondsLeft - penalty
+        alert("Incorrect Answer!")
+    }
+}
+
+// allows to check answer
+var options = document.querySelector("#choices")
+options.addEventListener("click", function (event) {
+    event.preventDefault()
+    console.log(event.target.value)
+    checkGuess(event.target.value)
+    currentQuestionIndex++
+    console.log(currentQuestionIndex)
+    getCurrentQuestions()
+})
+
+
+
 // gets currents questions/choices
 function getCurrentQuestions() {
     var currentQuestion = questions[currentQuestionIndex]
     var titleElement = document.querySelector("#question-title")
     titleElement.textContent = currentQuestion.title
-    var ulCreate = document.createElement("ul")
 
-    questionChoices.textContent = ""
+    questionChoices.innerHTML = ""
+
 
     // to create each question
     for (var i = 0; i < currentQuestion.choice.length; i++) {
@@ -74,46 +96,12 @@ function getCurrentQuestions() {
 
         choiceNode.textContent = i + 1 + ". " + currentQuestion.choice[i]
 
+        // To check next answer
+
         questionChoices.appendChild(choiceNode)
-        // var userQuestion = questions[currentQuestionIndex].title
-        // var userChoices = questions[questionChoices].choice
-        // questionsDiv.textContent = userQuestion;
     }
 
 
-
-    // To accecpt user answers
-    // userQuestion.forEach(function (newItem) {
-    //     var listItem = document.createElement("li")
-    //     listItem.textContent = newItem
-    //     questionsDiv.appendChild(ulCreate)
-    //     ulCreate.appendChild(listItem)
-    // var userChoiceBtn = document.querySelector("value")
-    // console.log(value)
-    // })
-
-
-    // compare user answer with real answer
-//     function compare(event) {
-//         var element = event.target
-
-//         if (element.matches("li")) {
-
-//             var createDiv = document.createElement("div")
-//             createDiv.setAttribute("id", "createDiv")
-//             // Correct condition 
-//             if (element.textContent == questions[currentQuestionIndex].answer) {
-//                 score++
-//                 createDiv.textContent = "Correct! The answer is:  " + questions[currentQuestionIndex].answer
-//                 // Correct condition 
-//             } else {
-//                 // Will deduct -5 seconds off secondsLeft for wrong answers
-//                 secondsLeft = secondsLeft - penalty
-//                 createDiv.textContent = "Wrong! The correct answer is:  " + questions[currentQuestionIndex].answer
-//             }
-
-//         }
-//     }
 }
 
 // timer
@@ -129,16 +117,50 @@ function timerStart() {
         holdInterval = setInterval(function () {
             secondsLeft--
             timerElement.textContent = "Time: " + secondsLeft
+            if (currentQuestionIndex === 5) {
+                alert("You've answered all questions!")
+                clearInterval(holdInterval)
+                score()
+            }
 
             if (secondsLeft <= 0) {
                 clearInterval(holdInterval)
                 // will need to add a score function
-                score();
+                score()
                 timerElement.textContent = "Time's up!"
             }
         }, 1000)
     }
 }
 
+var endScreenEl = document.querySelector("#end-screen")
+var finalScore = document.querySelector("#final-score")
+var submitBtn = document.querySelector("#submit")
+
+function score() {
+    questionsElement.setAttribute("class", "hide")
+    endScreenEl.removeAttribute("class")
+    finalScore.textContent = secondsLeft
+    submitBtn.addEventListener("click", highScore)
+}
+
+const highScoreArray = JSON.parse(localStorage.getItem("savedScores")) ? JSON.parse(localStorage.getItem("savedScores")) : []
+
+function highScore() {
+    console.log(document.querySelector("#initials").value)
+    const scoreSet = {
+        initials: document.querySelector("#initials").value,
+        endScore: secondsLeft
+    }
+    
+    highScoreArray.push(scoreSet)
+
+    localStorage.setItem("savedScores", JSON.stringify(highScoreArray))
+}
+
+
+// target the id in the HS.html and loop over the highscores
+// and create li for each initial and score set
+// ref line 92
 
 startBtn.addEventListener("click", startQuiz)
