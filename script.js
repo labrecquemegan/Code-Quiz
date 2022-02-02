@@ -156,11 +156,22 @@ function highScore() {
     highScoreArray.push(scoreSet)
 
     localStorage.setItem("savedScores", JSON.stringify(highScoreArray))
+    scoreHolder()
 }
 
 
 // target the id in the HS.html and loop over the highscores
 // and create li for each initial and score set
 // ref line 92
+// var finalScoreHolder = document.querySelector("#holdScores")
+
+function scoreHolder(highScoreArray) {
+    localStorage.getItem("savedScores", JSON.parse(highScoreArray))
+    console.log(savedScores)
+    let finalScoreHolder = document.createElement("div")
+    playerDiv.classList.add("holdScores")
+       playerDiv.innerHTML= `<p>${localStorage.getItem("savedScores", JSON.parse(highScoreArray))}
+       </p>`
+}
 
 startBtn.addEventListener("click", startQuiz)
